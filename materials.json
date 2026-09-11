@@ -1,0 +1,56 @@
+[
+  {
+    "id":"listening-1","kind":"listening","title":"社团海报","source":"内测交互试听稿 · 不是原版录音",
+    "text":"The school art club is making posters for its autumn show. Members can choose to design a poster or help visitors at the door. The first meeting is on Tuesday in Room 12. Bring a pencil and an idea for the poster.",
+    "glossary":{"members":"成员","design":"设计","visitors":"参观者","meeting":"会议","bring":"带来"},
+    "questions":[
+      {"id":"l1q1","prompt":"What can club members choose to do?","options":["Design a poster","Paint Room 12","Buy tickets","Bring a camera"],"answer":0,"explain":"试听稿中说，成员可以设计海报，或在门口帮助来访者。"},
+      {"id":"l1q2","prompt":"What should students bring?","options":["A pencil","A ticket","A uniform","A map"],"answer":0,"explain":"试听稿最后提示带一支铅笔和一个海报想法。"}
+    ]
+  },
+  {
+    "id":"reading-1","kind":"reading","title":"图书馆通知","source":"内测阅读稿 · 非真题，用于验证带读与词义提示",
+    "text":"Library notice\nThe study room will be closed on Friday afternoon because a new computer system is being installed. Students may use the main library until 6 p.m. Please return borrowed books at the desk, not through the outside box.",
+    "glossary":{"closed":"关闭的","installed":"安装","main":"主要的","return":"归还","borrowed":"借来的","desk":"服务台","outside":"外面的"},
+    "questions":[
+      {"id":"r1q1","prompt":"Why will the study room be closed?","options":["New computers are being installed","The library is moving","Students have an exam","Books are being counted"],"answer":0,"explain":"通知说明学习室关闭是因为正在安装新的电脑系统。"},
+      {"id":"r1q2","prompt":"Where should students return books?","options":["At the desk","In the outside box","In Room 12","At home"],"answer":0,"explain":"通知要求在服务台归还，不要放进外面的还书箱。"}
+    ]
+  },
+  {
+    "id":"listening-2","kind":"listening","title":"周末自然营","source":"内测交互试听稿 · 不是原版录音",
+    "text":"This Saturday, Green Hill Camp is running a morning walk for young photographers. The group will meet at the bus station at nine o'clock, then travel together to the lake. Wear comfortable shoes and bring water. The walk ends at twelve, before the weather becomes too warm.",
+    "glossary":{"running":"举办","photographers":"摄影爱好者","station":"车站","comfortable":"舒适的","ends":"结束","weather":"天气"},
+    "questions":[
+      {"id":"l2q1","prompt":"Where will the group meet?","options":["At the bus station","At the lake","At school","At a shop"],"answer":0,"explain":"试听稿中明确说，大家九点在汽车站集合。"},
+      {"id":"l2q2","prompt":"Why does the walk end at twelve?","options":["Before the weather gets warm","Before the bus leaves","Before lunch is ready","Before the lake closes"],"answer":0,"explain":"步行在天气变热之前结束。"}
+    ]
+  },
+  {
+    "id":"reading-2","kind":"reading","title":"科学日公告","source":"内测阅读稿 · 非真题，用于验证带读与词义提示",
+    "text":"Science Day\nOn 14 October, the school hall will become a place for short experiments and talks. Each class may send two students to show a project. Visitors can vote for the most useful idea. Please give your project title to Mr Lee by Monday morning.",
+    "glossary":{"hall":"大厅","experiments":"实验","class":"班级","project":"项目","visitors":"参观者","vote":"投票","useful":"有用的","title":"标题"},
+    "questions":[
+      {"id":"r2q1","prompt":"How many students may each class send?","options":["Two","One","Four","All students"],"answer":0,"explain":"公告写明每班可派两名学生展示项目。"},
+      {"id":"r2q2","prompt":"What must students give Mr Lee?","options":["Their project title","A science book","A ticket","Their vote"],"answer":0,"explain":"学生要在周一早上前把项目标题交给李老师。"}
+    ]
+  },
+  {
+    "id":"listening-3","kind":"listening","title":"音乐会提醒","source":"内测交互试听稿 · 不是原版录音",
+    "text":"The city youth orchestra will give a free concert in the park on Sunday evening. It begins at half past six, but families should arrive early because there are only a few seats. If it rains, the concert will move to the community hall next to the sports centre.",
+    "glossary":{"orchestra":"管弦乐队","concert":"音乐会","families":"家庭","seats":"座位","rains":"下雨","community":"社区"},
+    "questions":[
+      {"id":"l3q1","prompt":"Why should families arrive early?","options":["There are few seats","The concert starts at six","The park closes early","They need to buy tickets"],"answer":0,"explain":"试听稿说座位不多，所以建议早点到。"},
+      {"id":"l3q2","prompt":"Where will the concert be if it rains?","options":["The community hall","The sports centre","The bus station","The school hall"],"answer":0,"explain":"若下雨，音乐会移到体育中心旁的社区礼堂。"}
+    ]
+  },
+  {
+    "id":"reading-3","kind":"reading","title":"自行车维修课","source":"内测阅读稿 · 非真题，用于验证带读与词义提示",
+    "text":"Bike repair course\nDo you want to understand how your bike works? The Saturday course teaches basic repair skills, such as checking tyres and fixing a loose chain. It is suitable for beginners, and all tools are provided. Book online before Wednesday because places are limited.",
+    "glossary":{"repair":"维修","course":"课程","skills":"技能","tyres":"轮胎","loose":"松的","chain":"链条","suitable":"适合的","beginners":"初学者","provided":"提供","limited":"有限的"},
+    "questions":[
+      {"id":"r3q1","prompt":"Who is the course suitable for?","options":["Beginners","Professional cyclists","Teachers only","Young children only"],"answer":0,"explain":"课程说明它适合初学者。"},
+      {"id":"r3q2","prompt":"Why should students book before Wednesday?","options":["Places are limited","Tools are expensive","The course is online","Bikes must be checked"],"answer":0,"explain":"名额有限，因此需要在周三前预约。"}
+    ]
+  }
+]
