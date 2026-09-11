@@ -12,6 +12,7 @@ try{const raw=localStorage.getItem(KEY);if(raw){const parsed=JSON.parse(raw);if(
 if(state.settings.readingRate===0.55)state.settings.readingRate=0.45;
 const wordBank=()=>privatePack?.vocabulary?.length?privatePack.vocabulary:bank.slice(0,60);
 const studyMaterials=()=>privatePack?.materials?.length?privatePack.materials:materials;
+const isPrivateMaterial=material=>Boolean(material&&privatePack?.materials?.some(item=>item.id===material.id));
 function notify(text){$('#toast').textContent=text;$('#toast').style.display='block';clearTimeout(notify.timer);notify.timer=setTimeout(()=>$('#toast').style.display='none',5000);}
 function save(){if(storageBlocked){notify('记录无法读取，已停止覆盖。请先导出原记录。');return false;}try{localStorage.setItem(KEY,JSON.stringify(state));return true;}catch{notify('未能保存，请到家长空间导出备份。');return false;}}
 const player=new GuidePlayer(updatePlayer,()=>{
@@ -134,7 +135,8 @@ function startAuthenticListening(m){
 }
 function startReading(m){
   active={type:'reading-follow',material:m,key:'reading',date:today(),followed:false};show();
-  body.innerHTML=`<div class="tag">阅读带读 · 全文跟读后再作答</div><h2>${esc(m.title)}</h2><p class="notice compact">这是交互内测稿，不是 PET 真题。第一页只看英文；请先听完整篇，再跟读。全文跟读完成后，才会逐题作答。</p><p class="source">${esc(m.source)}</p><div class="passage plain-passage" lang="en">${esc(m.text)}</div>${controls('reading')}<button id="readingQuestions" disabled>全文跟读完成后开始答题</button>`;
+  const guidance=isPrivateMaterial(m)?'这是家庭私有资料。第一页只看英文；请先听完整篇，再跟读。全文跟读完成后，才会逐题作答。':'这是交互内测稿，不是 PET 真题。第一页只看英文；请先听完整篇，再跟读。全文跟读完成后，才会逐题作答。';
+  body.innerHTML=`<div class="tag">阅读带读 · 全文跟读后再作答</div><h2>${esc(m.title)}</h2><p class="notice compact">${guidance}</p><p class="source">${esc(m.source)}</p><div class="passage plain-passage" lang="en">${esc(m.text)}</div>${controls('reading')}<button id="readingQuestions" disabled>全文跟读完成后开始答题</button>`;
   wirePlayer(()=>readingSteps(m.text,state.settings.readingRate??0.45),'reading');
   $('#readingQuestions').onclick=()=>{if(active?.followed)showReadingQuestionsV2();};
 }
