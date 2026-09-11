@@ -9,12 +9,14 @@
     ]
   },
   {
-    "id":"reading-1","kind":"reading","title":"图书馆通知","source":"内测阅读稿 · 非真题，用于验证带读与词义提示",
-    "text":"Library notice\nThe study room will be closed on Friday afternoon because a new computer system is being installed. Students may use the main library until 6 p.m. Please return borrowed books at the desk, not through the outside box.",
-    "glossary":{"closed":"关闭的","installed":"安装","main":"主要的","return":"归还","borrowed":"借来的","desk":"服务台","outside":"外面的"},
+    "id":"reading-1","kind":"reading","title":"图书馆通知","source":"交互内测阅读稿 · 非真题，不计入 PET 真题练习",
+    "text":"Library notice\nThe study room will be closed on Friday afternoon because a new computer system is being installed. Students who need a quiet place may use the main library until 6 p.m. The computer area in the main library will stay open, but students should bring their own headphones. Please return borrowed books at the desk, not through the outside box.\n\nThe study room will open again as usual on Saturday morning. Ask a library assistant if you need help finding a different place to work.",
+    "glossary":{"closed":"关闭的","installed":"安装","quiet":"安静的","main":"主要的","headphones":"耳机","return":"归还","borrowed":"借来的","desk":"服务台","outside":"外面的","assistant":"管理员"},
     "questions":[
-      {"id":"r1q1","prompt":"Why will the study room be closed?","options":["New computers are being installed","The library is moving","Students have an exam","Books are being counted"],"answer":0,"explain":"通知说明学习室关闭是因为正在安装新的电脑系统。"},
-      {"id":"r1q2","prompt":"Where should students return books?","options":["At the desk","In the outside box","In Room 12","At home"],"answer":0,"explain":"通知要求在服务台归还，不要放进外面的还书箱。"}
+      {"id":"r1q1","prompt":"Why will the study room be closed on Friday afternoon?","options":["New computers are being installed","The library is moving","Students have an exam","Books are being counted"],"answer":0,"explainEn":"The notice says that a new computer system is being installed in the study room.","explainZh":"原文明确说学习室关闭的原因是正在安装新的电脑系统；不是搬图书馆、考试或清点图书。"},
+      {"id":"r1q2","prompt":"What should students bring if they want to use the computer area?","options":["Their own headphones","A new computer","A library card from home","A different book"],"answer":0,"explainEn":"The computer area stays open, but students should bring their own headphones.","explainZh":"电脑区仍开放，但原文用 but 转折提醒学生自带耳机；题目问的是进入电脑区需要准备什么。"},
+      {"id":"r1q3","prompt":"How long may students use the main library on Friday?","options":["Until 6 p.m.","Until Friday morning","Until Saturday morning","All night"],"answer":0,"explainEn":"Students may use the main library until 6 p.m. on Friday.","explainZh":"until 6 p.m. 表示“直到下午 6 点”；Saturday morning 说的是学习室恢复开放的时间，不是主图书馆当天的使用截止时间。"},
+      {"id":"r1q4","prompt":"Where should students return borrowed books?","options":["At the desk","In the outside box","In the computer area","In the study room"],"answer":0,"explainEn":"The notice says to return borrowed books at the desk, not through the outside box.","explainZh":"at the desk 是服务台归还；not through the outside box 直接排除了外面的还书箱，题目考查 not 的否定信息。"}
     ]
   },
   {
@@ -27,12 +29,14 @@
     ]
   },
   {
-    "id":"reading-2","kind":"reading","title":"科学日公告","source":"内测阅读稿 · 非真题，用于验证带读与词义提示",
-    "text":"Science Day\nOn 14 October, the school hall will become a place for short experiments and talks. Each class may send two students to show a project. Visitors can vote for the most useful idea. Please give your project title to Mr Lee by Monday morning.",
+    "id":"reading-2","kind":"reading","title":"科学日公告","source":"交互内测阅读稿 · 非真题，不计入 PET 真题练习",
+    "text":"Science Day\nOn 14 October, the school hall will become a place for short experiments and talks. Each class may send two students to show a project. Visitors can vote for the most useful idea, but they cannot vote for more than one project.\n\nPlease give your project title to Mr Lee by Monday morning. Teams should arrive at the hall at 8.30 to set up their tables. Families may visit from 10 o'clock until lunchtime.",
     "glossary":{"hall":"大厅","experiments":"实验","class":"班级","project":"项目","visitors":"参观者","vote":"投票","useful":"有用的","title":"标题"},
     "questions":[
-      {"id":"r2q1","prompt":"How many students may each class send?","options":["Two","One","Four","All students"],"answer":0,"explain":"公告写明每班可派两名学生展示项目。"},
-      {"id":"r2q2","prompt":"What must students give Mr Lee?","options":["Their project title","A science book","A ticket","Their vote"],"answer":0,"explain":"学生要在周一早上前把项目标题交给李老师。"}
+      {"id":"r2q1","prompt":"How many students may each class send?","options":["Two","One","Four","All students"],"answer":0,"explainEn":"Each class may send two students to show a project.","explainZh":"Each class may send two students 是直接信息；two students 指每个班可派两位，而不是整场活动只有两人。"},
+      {"id":"r2q2","prompt":"What can each visitor do?","options":["Vote for one project","Vote for every project","Give a talk","Set up a table"],"answer":0,"explainEn":"Visitors can vote for the most useful idea, but they cannot vote for more than one project.","explainZh":"but 后面限制了投票次数：每位参观者只能投一个项目，不能给所有项目投票。"},
+      {"id":"r2q3","prompt":"When must teams arrive at the hall?","options":["At 8.30","At 10.00","At lunchtime","On Monday morning"],"answer":0,"explainEn":"Teams should arrive at 8.30 to set up their tables.","explainZh":"8.30 是小组布置展台的到达时间；10 o'clock 是家长开始参观的时间，Monday morning 是交项目标题的截止时间。"},
+      {"id":"r2q4","prompt":"What must students give Mr Lee?","options":["Their project title","A science book","A ticket","Their vote"],"answer":0,"explainEn":"Students should give their project title to Mr Lee by Monday morning.","explainZh":"give your project title to Mr Lee 表示把项目标题交给李老师；by Monday morning 是截止时间。"}
     ]
   },
   {
@@ -45,12 +49,14 @@
     ]
   },
   {
-    "id":"reading-3","kind":"reading","title":"自行车维修课","source":"内测阅读稿 · 非真题，用于验证带读与词义提示",
-    "text":"Bike repair course\nDo you want to understand how your bike works? The Saturday course teaches basic repair skills, such as checking tyres and fixing a loose chain. It is suitable for beginners, and all tools are provided. Book online before Wednesday because places are limited.",
+    "id":"reading-3","kind":"reading","title":"自行车维修课","source":"交互内测阅读稿 · 非真题，不计入 PET 真题练习",
+    "text":"Bike repair course\nDo you want to understand how your bike works? The Saturday course teaches basic repair skills, such as checking tyres and fixing a loose chain. It is suitable for beginners, and all tools are provided.\n\nThe course starts at 9.30 and finishes at 12.00. Bring your own bike if possible, although two practice bikes are available. Book online before Wednesday because places are limited.",
     "glossary":{"repair":"维修","course":"课程","skills":"技能","tyres":"轮胎","loose":"松的","chain":"链条","suitable":"适合的","beginners":"初学者","provided":"提供","limited":"有限的"},
     "questions":[
-      {"id":"r3q1","prompt":"Who is the course suitable for?","options":["Beginners","Professional cyclists","Teachers only","Young children only"],"answer":0,"explain":"课程说明它适合初学者。"},
-      {"id":"r3q2","prompt":"Why should students book before Wednesday?","options":["Places are limited","Tools are expensive","The course is online","Bikes must be checked"],"answer":0,"explain":"名额有限，因此需要在周三前预约。"}
+      {"id":"r3q1","prompt":"Who is the course suitable for?","options":["Beginners","Professional cyclists","Teachers only","Young children only"],"answer":0,"explainEn":"The notice says that the course is suitable for beginners.","explainZh":"suitable for beginners 表示适合初学者；文本没有说只面向专业骑手、教师或幼儿。"},
+      {"id":"r3q2","prompt":"What should students bring if possible?","options":["Their own bike","Their own tools","A new chain","A school uniform"],"answer":0,"explainEn":"Students should bring their own bike if possible, although practice bikes are available.","explainZh":"if possible 表示“如果方便的话”，建议带自己的自行车；工具由课程提供，练习车只是备用。"},
+      {"id":"r3q3","prompt":"When does the course finish?","options":["At 12.00","At 9.30","Before Wednesday","On Sunday"],"answer":0,"explainEn":"The course starts at 9.30 and finishes at 12.00.","explainZh":"starts at 9.30 是开始时间，finishes at 12.00 才是结束时间；不要把开始时间当成答案。"},
+      {"id":"r3q4","prompt":"Why should students book before Wednesday?","options":["Places are limited","Tools are expensive","The course is online","Bikes must be checked"],"answer":0,"explainEn":"Students need to book before Wednesday because places are limited.","explainZh":"because 引出原因：名额有限，所以要在周三前预约；online 只是预约方式，并不是提前预约的原因。"}
     ]
   }
 ]

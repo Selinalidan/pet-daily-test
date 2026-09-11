@@ -39,6 +39,17 @@ export function wordSteps(w, rate) {
     speak(w.meaning,'zh-CN'),speak(w.meaning,'zh-CN'),speak(w.meaning,'zh-CN'),wait(Math.max(3000,w.meaning.length*380)),
     speak(w.sentence),speak(w.translation,'zh-CN'),speak('请跟读','zh-CN'),wait(sentenceWait),speak(w.sentence),wait(sentenceWait)];
 }
+export function readingSteps(text, rate=.55) {
+  const lines=text.split('\n');
+  const body=(lines[0]&&!/[.!?]/.test(lines[0])?lines.slice(1):lines).join('\n').trim();
+  const paragraphs=body.split(/\n\s*\n/).map(x=>x.replace(/\s+/g,' ').trim()).filter(Boolean);
+  return paragraphs.flatMap((paragraph,index)=>{
+    const words=paragraph.split(/\s+/).filter(Boolean).length;
+    // A paragraph-sized turn keeps the meaning together while still leaving real follow-reading time.
+    const pause=Math.max(11000, Math.min(26000, 5000+words*310));
+    return [{text:paragraph,lang:'en-GB',rate,label:`第 ${index+1} 段 · 请听`},{wait:pause,label:'轮到你跟读'}];
+  });
+}
 let context;
 export function effect(correct, enabled=true) {
   if(!enabled)return;

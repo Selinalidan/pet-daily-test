@@ -11,13 +11,14 @@ export const wordsFor = (bank, key) => {
   return index >= 0 && index < 35 ? bank.slice(index * 20, index * 20 + 20) : [];
 };
 export function initialState() {
-  return {version:2, settings:{name:'茉莉', exam:'2026-10-17', effects:true, rate:0.85, testDate:'2026-09-11'}, learned:{}, attempts:[], sessions:{}, completed:{}};
+  return {version:2, settings:{name:'茉莉', exam:'2026-10-17', effects:true, rate:0.85, readingRate:0.55, testDate:'2026-09-11'}, learned:{}, attempts:[], sessions:{}, completed:{}};
 }
 export function validState(s) {
   const object = x => x && typeof x === 'object' && !Array.isArray(x);
   return s?.version === 2 && object(s.settings) && typeof s.settings.name === 'string' && s.settings.name.length <= 40 &&
     /^\d{4}-\d{2}-\d{2}$/.test(s.settings.exam) && (!s.settings.testDate || /^\d{4}-\d{2}-\d{2}$/.test(s.settings.testDate)) && typeof s.settings.effects === 'boolean' &&
     typeof s.settings.rate === 'number' && s.settings.rate >= 0.6 && s.settings.rate <= 1.2 &&
+    (!s.settings.readingRate || typeof s.settings.readingRate === 'number' && s.settings.readingRate >= 0.45 && s.settings.readingRate <= 0.8) &&
     object(s.learned) && Object.values(s.learned).every(x => /^\d{4}-\d{2}-\d{2}$/.test(x)) &&
     object(s.sessions) && Object.values(s.sessions).every(x => Number.isInteger(x.index) && x.index >= 0 && x.index <= 1000) &&
     object(s.completed) && Object.values(s.completed).every(x => x === true) &&
