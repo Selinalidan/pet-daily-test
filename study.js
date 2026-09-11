@@ -29,8 +29,8 @@ function updatePlayer(info){
 }
 function controls(mode='standard'){
   const reading=mode==='reading';
-  const rates=reading?'<option value="0.5">很慢</option><option value="0.55">跟读</option><option value="0.65">稍快</option>':'<option value="0.7">慢一点</option><option value="0.85">舒缓</option><option value="1">自然</option>';
-  return `<div class="player"><div class="player-state"><span id="playStatus" role="status">准备好了</span><progress id="audioProgress" max="1" value="0" aria-label="带读进度"></progress></div><p id="spokenLine" class="spoken" lang="en"></p><div class="actions"><button id="togglePlay">播放</button><button id="repeatAudio" class="quiet">重听本句</button><button id="moreTime" class="quiet" disabled>多等3秒</button><label class="speed">语速<select id="speechRate">${rates}</select></label></div><p class="muted player-help">阅读按段落读完会停下来等你跟读；需要时点“多等3秒”。</p></div>`;
+  const rates=reading?'<option value="0.4">很慢</option><option value="0.45">慢速跟读</option><option value="0.55">标准跟读</option><option value="0.65">稍快</option>':'<option value="0.7">慢一点</option><option value="0.85">舒缓</option><option value="1">自然</option>';
+  return `<div class="player"><div class="player-state"><span id="playStatus" role="status">准备好了</span><progress id="audioProgress" max="1" value="0" aria-label="带读进度"></progress></div><p id="spokenLine" class="spoken" lang="en"></p><div class="actions"><button id="togglePlay">播放</button><button id="repeatAudio" class="quiet">重听本句</button><button id="moreTime" class="quiet" disabled>多等3秒</button><label class="speed">语速<select id="speechRate">${rates}</select></label></div><p class="muted player-help">${reading?'阅读默认慢速朗读，每段读完会停下来等你跟读；需要时点“多等3秒”。':'听完后可以重听本句，或给自己多一点跟读时间。'}</p></div>`;
 }
 function wirePlayer(steps,mode='standard'){
   const reading=mode==='reading', setting=reading?(state.settings.readingRate??0.55):state.settings.rate;
@@ -81,27 +81,27 @@ function materialPanel(m,q){
   const passage=`<details ${active?.review&&m.kind==='reading'?'open':''}><summary>${esc(m.title)} · 原文</summary><div class="passage" lang="en">${active?.review&&m.kind==='reading'?annotate(m.text,m.glossary):esc(m.text)}</div></details>`;
   const trial=m.kind==='listening'?'<p class="notice compact">这是内测试听：用于验证播放、作答和错题流程；正式版再接入原版音频。</p>':'';
   const image=q.image?`<img class="question-image" src="${esc(q.image)}" alt="原题选项图片">`:'';
-  return `<p class="source">${esc(m.source)}</p>${trial}${m.kind==='listening'?controls()+passage:passage+controls()}${image}`;
+  return `<p class="source">${esc(m.source)}</p>${trial}${m.kind==='listening'?controls('standard')+passage:passage+controls('reading')}${image}`;
 }
 function showQuestion(){
   stopAudio();show();const q=active.qs[active.index];active.answered=false;const m=q.material;
   body.innerHTML=`<div class="tag">${names[q.kind]}${active.review?'复习':'带练'} · ${active.index+1} / ${active.qs.length}</div><h2 lang="en">${esc(q.prompt)}</h2>${m?materialPanel(m,q):'<button id="sayWord" class="quiet">听单词</button>'}<form id="answerForm"><fieldset class="options"><legend class="sr-only">选择答案</legend>${q.options.map((o,i)=>`<label class="option"><input type="radio" name="answer" value="${i}"><span>${String.fromCharCode(65+i)}. ${esc(o)}</span></label>`).join('')}</fieldset><p class="answer-hint" id="answerHint" aria-live="polite"></p><button>核对答案</button></form><div id="feedback" aria-live="polite"></div>`;
-  if(m)wirePlayer(()=>m.text.split(/(?<=[.!?])\s+/).map(text=>({text,lang:'en-GB',rate:state.settings.rate,label:m.kind==='listening'?'试听内容':'带读原文'})));
+  if(m)wirePlayer(()=>m.text.split(/(?<=[.!?])\s+/).map(text=>({text,lang:'en-GB',rate:m.kind==='reading'?(state.settings.readingRate??0.45):state.settings.rate,label:m.kind==='listening'?'试听内容':'带读原文'})),m.kind==='reading'?'reading':'standard');
   if(q.kind==='vocabulary')$('#sayWord').onclick=()=>player.start([{text:q.word.word,lang:'en-GB',rate:state.settings.rate,label:'听单词'}]);
   $('#answerForm').onsubmit=e=>{e.preventDefault();if(active.answered)return;const value=new FormData(e.target).get('answer');if(value===null){$('#answerHint').textContent='请选择一个答案，再核对。';return;}active.answered=true;stopAudio();const choice=Number(value),correct=choice===q.answer;state.attempts.push({id:crypto.randomUUID(),questionId:q.id,kind:q.kind,date:active.date,choice,correct,review:active.review});save();effect(correct,state.settings.effects);e.target.querySelectorAll('input,button').forEach(el=>el.disabled=true);const en=q.explainEn?`<p><b>Why:</b> ${esc(q.explainEn)}</p>`:'';const zh=q.explainZh||q.explain;$('#feedback').innerHTML=`<div class="feedback ${correct?'correct':'incorrect'}"><strong>${correct?'✓ 答对了':'再熟悉一下'}</strong><p><b>Correct answer / 正确答案：</b>${String.fromCharCode(65+q.answer)}. ${esc(q.options[q.answer])}</p>${en}<p><b>解释：</b>${esc(zh)}</p></div><button id="nextQuestion">${active.index+1===active.qs.length?'完成这组':'下一题'}</button>`;$('#nextQuestion').onclick=()=>{active.index++;state.sessions[active.sessionKey]={index:active.index};save();if(active.index>=active.qs.length){markComplete(active.key);body.innerHTML='<h2>这一组完成了</h2><p>复习记录已经留下。</p><button id="backToday">返回今天</button>';$('#backToday').onclick=close;}else showQuestion();};};
 }
 function startReading(m){
   active={type:'reading-follow',material:m,key:'reading',date:today(),followed:false};show();
-  body.innerHTML=`<div class="tag">阅读带读 · 全文跟读后再作答</div><h2>${esc(m.title)}</h2><p class="notice compact">这是交互内测稿，不是 PET 真题。先按段落慢速跟读；全文结束后，才会看到 4 道题。</p><p class="source">${esc(m.source)}</p><div class="passage plain-passage" lang="en">${esc(m.text)}</div>${controls('reading')}<button id="readingQuestions" disabled>全文跟读完成后开始答题</button>`;
-  wirePlayer(()=>readingSteps(m.text,state.settings.readingRate??0.55),'reading');
-  $('#readingQuestions').onclick=()=>{if(active?.followed)showReadingQuestions();};
+  body.innerHTML=`<div class="tag">阅读带读 · 全文跟读后再作答</div><h2>${esc(m.title)}</h2><p class="notice compact">这是交互内测稿，不是 PET 真题。第一页只看英文；请先听完整篇，再跟读。全文跟读完成后，才会逐题作答。</p><p class="source">${esc(m.source)}</p><div class="passage plain-passage" lang="en">${esc(m.text)}</div>${controls('reading')}<button id="readingQuestions" disabled>全文跟读完成后开始答题</button>`;
+  wirePlayer(()=>readingSteps(m.text,state.settings.readingRate??0.45),'reading');
+  $('#readingQuestions').onclick=()=>{if(active?.followed)showReadingQuestionsV2();};
 }
 function explain(q){
   return `<article class="answer-review ${q.correct?'correct':'incorrect'}"><h3>Question ${q.number} · ${q.correct?'✓':'需要再看'}</h3><p><b>Your answer / 你的答案：</b>${q.choiceLabel}. ${esc(q.choiceText)}</p><p><b>Correct answer / 正确答案：</b>${q.answerLabel}. ${esc(q.question.options[q.question.answer])}</p><p><b>Why:</b> ${esc(q.question.explainEn||'Read the relevant sentence in the passage again.')}</p><p><b>解释：</b>${esc(q.question.explainZh||q.question.explain||'回到原文定位句，再判断信息。')}</p></article>`;
 }
 function showReadingQuestions(){
   stopAudio();const m=active.material;active.type='reading-questions';
-  body.innerHTML=`<div class="tag">阅读带读 · 4题</div><h2>${esc(m.title)}</h2><p class="muted">刚才已经完成全文跟读。现在请独立完成全部题目。</p><details><summary>查看英文原文</summary><div class="passage" lang="en">${esc(m.text)}</div></details><form id="readingForm">${m.questions.map((q,n)=>`<section class="reading-question"><h3>${n+1}. ${esc(q.prompt)}</h3><fieldset class="options"><legend class="sr-only">Question ${n+1}</legend>${q.options.map((o,i)=>`<label class="option"><input type="radio" name="${esc(q.id)}" value="${i}"><span>${String.fromCharCode(65+i)}. ${esc(o)}</span></label>`).join('')}</fieldset><p class="answer-hint" data-hint="${esc(q.id)}" aria-live="polite"></p></section>`).join('')}<button>核对全部答案</button></form>`;
+  body.innerHTML=`<div class="tag">阅读带读 · 4题</div><h2>${esc(m.title)}</h2><p class="muted">刚才已经完成全文跟读。现在请逐题独立作答，每题提交后立即看依据。</p><details><summary>查看英文原文</summary><div class="passage" lang="en">${esc(m.text)}</div></details><form id="readingForm">${m.questions.map((q,n)=>`<section class="reading-question"><h3>${n+1}. ${esc(q.prompt)}</h3><fieldset class="options"><legend class="sr-only">Question ${n+1}</legend>${q.options.map((o,i)=>`<label class="option"><input type="radio" name="${esc(q.id)}" value="${i}"><span>${String.fromCharCode(65+i)}. ${esc(o)}</span></label>`).join('')}</fieldset><p class="answer-hint" data-hint="${esc(q.id)}" aria-live="polite">请选择一个答案</p></section>`).join('')}<button>核对全部答案</button></form>`;
   $('#readingForm').onsubmit=e=>{
     e.preventDefault();const form=new FormData(e.target);const unanswered=m.questions.filter(q=>form.get(q.id)===null);
     if(unanswered.length){const first=unanswered[0];const hint=document.querySelector(`[data-hint="${CSS.escape(first.id)}"]`);if(hint){hint.textContent='请选择本题答案，再继续。';hint.scrollIntoView({block:'center',behavior:'smooth'});}return;}
@@ -110,6 +110,26 @@ function showReadingQuestions(){
     body.innerHTML=`<div class="tag">阅读复盘 · 已记录 ${results.filter(x=>!x.correct).length} 道错题</div><h2>${results.every(x=>x.correct)?'这一组全对了':'答案和依据'}</h2><p>${results.every(x=>x.correct)?'很好。再看一遍重点词注，把语感留下来。':'答错的题已进错题本；明天和周日会再次出现。'}</p><details open><summary>全文复盘：英文原文与必要词注</summary><div class="passage" lang="en">${annotate(m.text,m.glossary)}</div></details><section class="answer-reviews">${results.map(explain).join('')}</section><button id="backToday">返回今天</button>`;
     $('#backToday').onclick=close;
   };
+}
+function showReadingQuestionsV2(){
+  stopAudio();const m=active.material;active.type='reading-questions';active.readingResults=[];
+  const render=()=>{
+    const n=active.readingResults.length,q=m.questions[n];
+    body.innerHTML=`<div class="tag">阅读带练 · 第 ${n+1} / ${m.questions.length} 题</div><h2>${esc(m.title)}</h2><p class="muted">全文已经跟读完成。请选择一个答案，提交后立即看中英文依据。</p><details><summary>查看英文原文</summary><div class="passage" lang="en">${esc(m.text)}</div></details><form id="readingForm"><section class="reading-question"><h3>${n+1}. ${esc(q.prompt)}</h3><fieldset class="options"><legend class="sr-only">Question ${n+1}</legend>${q.options.map((o,i)=>`<label class="option"><input type="radio" name="answer" value="${i}"><span>${String.fromCharCode(65+i)}. ${esc(o)}</span></label>`).join('')}</fieldset><p class="answer-hint" id="readingHint" aria-live="polite">请选择一个答案</p></section><button>核对答案</button></form><div id="readingFeedback" aria-live="polite"></div>`;
+    $('#readingForm').onsubmit=e=>{
+      e.preventDefault();const value=new FormData(e.target).get('answer');if(value===null){$('#readingHint').textContent='请选择一个答案，再核对。';return;}
+      const choice=Number(value),correct=choice===q.answer,result={question:q,number:n+1,choiceLabel:String.fromCharCode(65+choice),choiceText:q.options[choice],answerLabel:String.fromCharCode(65+q.answer),correct};
+      active.readingResults.push(result);state.attempts.push({id:crypto.randomUUID(),questionId:q.id,kind:'reading',date:active.date,choice,correct,review:false});save();effect(correct,state.settings.effects);e.target.querySelectorAll('input,button').forEach(el=>el.disabled=true);
+      $('#readingFeedback').innerHTML=`<div class="feedback ${correct?'correct':'incorrect'}"><strong>${correct?'✓ 答对了':'再熟悉一下'}</strong><p><b>Correct answer / 正确答案：</b>${result.answerLabel}. ${esc(q.options[q.answer])}</p><p><b>Why:</b> ${esc(q.explainEn||'Read the relevant sentence in the passage again.')}</p><p><b>解释：</b>${esc(q.explainZh||q.explain||'回到原文定位句，再判断信息。')}</p></div><details open><summary>查看这道题对应的原文词注</summary><div class="passage" lang="en">${annotate(m.text,m.glossary)}</div></details><button id="nextReadingQuestion">${n+1===m.questions.length?'完成这组':'下一题'}</button>`;
+      $('#nextReadingQuestion').onclick=()=>{if(n+1===m.questions.length){markComplete('reading');renderReadingSummary();}else render();};
+    };
+  };
+  render();
+}
+function renderReadingSummary(){
+  const m=active.material,results=active.readingResults;active.type='reading-feedback';
+  body.innerHTML=`<div class="tag">阅读复盘 · 已完成 ${results.length} 道题</div><h2>${results.every(x=>x.correct)?'这一组全对了':'答案和依据'}</h2><p>${results.every(x=>x.correct)?'很好。再看一遍重点词注，把语感留下来。':'答错的题已进错题本；明天和周日会再次出现。'}</p><details open><summary>全文复盘：英文原文与必要词注</summary><div class="passage" lang="en">${annotate(m.text,m.glossary)}</div></details><section class="answer-reviews">${results.map(explain).join('')}</section><button id="backToday">返回今天</button>`;
+  $('#backToday').onclick=close;
 }
 function annotate(text,glossary={}){const keys=Object.keys(glossary).sort((a,b)=>b.length-a.length);if(!keys.length)return esc(text).replace(/\n/g,'<br>');const pattern=new RegExp('\\b('+keys.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');let out='',last=0;for(const m of text.matchAll(pattern)){out+=esc(text.slice(last,m.index))+`<span class="vocab-mark">${esc(m[0])}<small>（${esc(glossary[m[0].toLowerCase()])}）</small></span>`;last=m.index+m[0].length;}return (out+esc(text.slice(last))).replace(/\n/g,'<br>');}
 app.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.review){const q=resolveQuestion(b.dataset.review);if(q)startQuiz([q],'single-'+q.id,true);return;}const key=b.dataset.task;if(!key)return;if(key==='words'){startWords();return;}if(key==='check'){startQuiz(wordsFor(bank.slice(0,60),addDays(today(),-1)).filter(w=>state.learned[w.id]).map(vocabQuestion),'check');return;}if(key.startsWith('review-')){startQuiz(dueMistakes(state.attempts,today()).filter(d=>d.kind===key.slice(7)).map(d=>resolveQuestion(d.id)).filter(Boolean),key,true);return;}const list=materials.filter(m=>m.kind===key);if(!list.length)return;const m=list[Math.max(0,TEST_DATES.indexOf(today()))%list.length];if(key==='reading'){startReading(m);return;}startQuiz(m.questions.map(q=>({...q,kind:m.kind,material:m})),key);});

@@ -10,7 +10,7 @@
   },
   {
     "id":"reading-1","kind":"reading","title":"图书馆通知","source":"交互内测阅读稿 · 非真题，不计入 PET 真题练习",
-    "text":"Library notice\nThe study room will be closed on Friday afternoon because a new computer system is being installed. Students who need a quiet place may use the main library until 6 p.m. The computer area in the main library will stay open, but students should bring their own headphones. Please return borrowed books at the desk, not through the outside box.\n\nThe study room will open again as usual on Saturday morning. Ask a library assistant if you need help finding a different place to work.",
+    "text":"Library notice\nThe study room will be closed on Friday afternoon because a new computer system is being installed. Students who need a quiet place may use the main library until 6 p.m. The computer area in the main library will stay open, but students should bring their own headphones. Please return borrowed books at the desk, not through the outside box.\n\nThe change is part of a small improvement project. The library team will move some tables, check the computers and put clear signs near the entrance. Students do not need to book a seat in the main library, although it may be busy after school. The study room will open again as usual on Saturday morning. Ask a library assistant if you need help finding a different place to work.",
     "glossary":{"closed":"关闭的","installed":"安装","quiet":"安静的","main":"主要的","headphones":"耳机","return":"归还","borrowed":"借来的","desk":"服务台","outside":"外面的","assistant":"管理员"},
     "questions":[
       {"id":"r1q1","prompt":"Why will the study room be closed on Friday afternoon?","options":["New computers are being installed","The library is moving","Students have an exam","Books are being counted"],"answer":0,"explainEn":"The notice says that a new computer system is being installed in the study room.","explainZh":"原文明确说学习室关闭的原因是正在安装新的电脑系统；不是搬图书馆、考试或清点图书。"},
@@ -30,7 +30,7 @@
   },
   {
     "id":"reading-2","kind":"reading","title":"科学日公告","source":"交互内测阅读稿 · 非真题，不计入 PET 真题练习",
-    "text":"Science Day\nOn 14 October, the school hall will become a place for short experiments and talks. Each class may send two students to show a project. Visitors can vote for the most useful idea, but they cannot vote for more than one project.\n\nPlease give your project title to Mr Lee by Monday morning. Teams should arrive at the hall at 8.30 to set up their tables. Families may visit from 10 o'clock until lunchtime.",
+    "text":"Science Day\nOn 14 October, the school hall will become a place for short experiments and talks. Each class may send two students to show a project. Visitors can vote for the most useful idea, but they cannot vote for more than one project. Some teams will demonstrate simple machines, while others will explain how plants grow in different kinds of soil.\n\nPlease give your project title to Mr Lee by Monday morning. Teams should arrive at the hall at 8.30 to set up their tables. They should bring labels for their equipment, but the school will provide tables and electricity. Families may visit from 10 o'clock until lunchtime. Teachers will announce the winning project before everyone leaves.",
     "glossary":{"hall":"大厅","experiments":"实验","class":"班级","project":"项目","visitors":"参观者","vote":"投票","useful":"有用的","title":"标题"},
     "questions":[
       {"id":"r2q1","prompt":"How many students may each class send?","options":["Two","One","Four","All students"],"answer":0,"explainEn":"Each class may send two students to show a project.","explainZh":"Each class may send two students 是直接信息；two students 指每个班可派两位，而不是整场活动只有两人。"},
@@ -50,7 +50,7 @@
   },
   {
     "id":"reading-3","kind":"reading","title":"自行车维修课","source":"交互内测阅读稿 · 非真题，不计入 PET 真题练习",
-    "text":"Bike repair course\nDo you want to understand how your bike works? The Saturday course teaches basic repair skills, such as checking tyres and fixing a loose chain. It is suitable for beginners, and all tools are provided.\n\nThe course starts at 9.30 and finishes at 12.00. Bring your own bike if possible, although two practice bikes are available. Book online before Wednesday because places are limited.",
+    "text":"Bike repair course\nDo you want to understand how your bike works? The Saturday course teaches basic repair skills, such as checking tyres and fixing a loose chain. It is suitable for beginners, and all tools are provided. The instructor will first show each skill, and then students will practise it in pairs. A short break is planned halfway through the morning.\n\nThe course starts at 9.30 and finishes at 12.00. Bring your own bike if possible, although two practice bikes are available. Book online before Wednesday because places are limited. If you have a question about a serious problem, write it on the booking form so the instructor can prepare an answer.",
     "glossary":{"repair":"维修","course":"课程","skills":"技能","tyres":"轮胎","loose":"松的","chain":"链条","suitable":"适合的","beginners":"初学者","provided":"提供","limited":"有限的"},
     "questions":[
       {"id":"r3q1","prompt":"Who is the course suitable for?","options":["Beginners","Professional cyclists","Teachers only","Young children only"],"answer":0,"explainEn":"The notice says that the course is suitable for beginners.","explainZh":"suitable for beginners 表示适合初学者；文本没有说只面向专业骑手、教师或幼儿。"},
