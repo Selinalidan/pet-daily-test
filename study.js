@@ -8,6 +8,7 @@ const app=$('#app'),modal=$('#exercise'),body=$('#exerciseBody'),TEST_DATES=['20
 const today=()=>state.settings.testDate||dateKey();
 const names={vocabulary:'单词',listening:'听力',reading:'阅读'};
 try{const raw=localStorage.getItem(KEY);if(raw){const parsed=JSON.parse(raw);if(!validState(parsed))throw Error();state=parsed;}else{const old=JSON.parse(localStorage.getItem('pet-study-v1')||'null');if(typeof old?.settings?.name==='string')state.settings.name=old.settings.name;}}catch{storageBlocked=true;}
+if(state.settings.readingRate===0.55)state.settings.readingRate=0.45;
 function notify(text){$('#toast').textContent=text;$('#toast').style.display='block';clearTimeout(notify.timer);notify.timer=setTimeout(()=>$('#toast').style.display='none',5000);}
 function save(){if(storageBlocked){notify('记录无法读取，已停止覆盖。请先导出原记录。');return false;}try{localStorage.setItem(KEY,JSON.stringify(state));return true;}catch{notify('未能保存，请到家长空间导出备份。');return false;}}
 const player=new GuidePlayer(updatePlayer,()=>{
@@ -33,7 +34,7 @@ function controls(mode='standard'){
   return `<div class="player"><div class="player-state"><span id="playStatus" role="status">准备好了</span><progress id="audioProgress" max="1" value="0" aria-label="带读进度"></progress></div><p id="spokenLine" class="spoken" lang="en"></p><div class="actions"><button id="togglePlay">播放</button><button id="repeatAudio" class="quiet">重听本句</button><button id="moreTime" class="quiet" disabled>多等3秒</button><label class="speed">语速<select id="speechRate">${rates}</select></label></div><p class="muted player-help">${reading?'阅读默认慢速朗读，每段读完会停下来等你跟读；需要时点“多等3秒”。':'听完后可以重听本句，或给自己多一点跟读时间。'}</p></div>`;
 }
 function wirePlayer(steps,mode='standard'){
-  const reading=mode==='reading', setting=reading?(state.settings.readingRate??0.55):state.settings.rate;
+  const reading=mode==='reading', setting=reading?(state.settings.readingRate??0.45):state.settings.rate;
   $('#speechRate').value=String(setting);$('#speechRate').onchange=e=>{const value=Number(e.target.value);if(reading)state.settings.readingRate=value;else state.settings.rate=value;save();player.steps.forEach(s=>{if(s.lang!=='zh-CN')s.rate=value;});};
   $('#togglePlay').onclick=()=>{if(media)media.pause();if(['speaking','waiting'].includes(player.status))player.pause();else if(player.status==='paused')player.resume();else player.start(steps());};
   $('#repeatAudio').onclick=()=>{if(media)media.pause();if(player.steps.length)player.repeat();else player.start(steps());};$('#moreTime').onclick=()=>player.extend();
