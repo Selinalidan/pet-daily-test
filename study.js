@@ -88,5 +88,5 @@ $('#parentButton').onclick=()=>{close();location.hash='parent';};
 window.addEventListener('hashchange',()=>{stopAudio();if(modal.open)modal.close();render();});
 let lastDate=today();setInterval(()=>{if(lastDate!==today()&&!modal.open){lastDate=today();render();}},30000);
 app.innerHTML='<p role="status">正在准备今天的学习…</p>';
-try{const v=await fetch('./vocabulary.json');if(!v.ok)throw Error();bank=await v.json();if(bank.length!==700||new Set(bank.map(w=>w.word)).size!==700)throw Error();const r=await fetch('./materials.json');if(!r.ok)throw Error();materials=await r.json();render();}catch{app.innerHTML='<p class="notice">学习资料没有加载成功，请检查网络后刷新。原有记录不会被清空。</p><button id="reload">重新加载</button>';$('#reload').onclick=()=>location.reload();}
+try{const v=await fetch('./vocabulary.json');if(!v.ok)throw Error();bank=await v.json();if(bank.length<60||new Set(bank.map(w=>w.word)).size!==bank.length)throw Error();const r=await fetch('./materials.json');if(!r.ok)throw Error();materials=await r.json();render();}catch{app.innerHTML='<p class="notice">学习资料没有加载成功，请检查网络后刷新。原有记录不会被清空。</p><button id="reload">重新加载</button>';$('#reload').onclick=()=>location.reload();}
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
